@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My App Engine App</title>
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.min.js"
+      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+      crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <h2>Make transcribe from a .flac file.</h2>
+    <form method="POST" action="/submit">
+      <div>
+        <input type="text" name="name" placeholder="Name">
+      </div>
+      <div>
+        <textarea name="message" placeholder="Message"></textarea>
+      </div>
+      <div>      
+          <ul class="dropdownmenu" id="select_session">
+            <img alt="Open" id="open_img" src="../static/open.png" width=32 height=32>
+                  <a id="open_file" onclick="openFile();">Open A Local File </a>
+
+                  <input type="file" name="fileName" id="selected_file">
+                  <output id="list" style="visibility: visible"></output>
+              
+              <div id="sessions_menu"></div>
+          </ul>
+      </div>
+      <div>
+         <button type="button">Run Test.js</button> 
+      </div>
+      <BR>
+      <div>
+        <textarea id="Outbox" value ="qqq" name="Ouputbox"  rows="25" cols="100">12345</textarea>
+      </div>
+    </form> 
+  </body>
+  <script>
+    $("button").click(function(){
+      let fileName = $("#selected_file").val().split("\\")[2];
+      console.log("here we are", fileName)
+      $.post("/submit", {fileName:fileName}, function(data, status){
+        console.log("Data: " + data.xxx + "\nStatus: " + status);
+        document.getElementById("Outbox").innerHTML = data.xxx;
+      });
+    });
+  </script>
+</html>
